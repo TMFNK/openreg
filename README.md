@@ -22,32 +22,30 @@ A demonstration of **Data Engineering + Regulatory Reporting + Compliance** skil
 
 ```mermaid
 graph TD
-    A[Synthetic Generator] --&gt; B[Raw CSVs];
-    B --&gt; C[Data Transformer];
-    C --&gt; D[DQ Engine];
-    D --&gt; E{Quality &gt;= 95%?};
-    E --&gt;|No| F[Abort & Alert];
-    E --&gt;|Yes| G[Data Vault Loader];
-    G --&gt; H[(SQLite)];
-    H --&gt; I[Regulatory Views];
-    H --&gt; J[Controlling Views];
-    H --&gt; K[RLS Views];
-    I --&gt; L[FINREP/COREP CSVs];
-    J --&gt; M[KPI Reports];
-    K --&gt; N[Streamlit Dashboard];
-    G --&gt; O[Audit Log];
+    A[Synthetic Generator] --> B[Raw CSVs]
+    B --> C[Data Transformer]
+    C --> D[DQ Engine]
+    D --> E{Quality >= 95%?}
+    E -->|No| F[Abort & Alert]
+    E -->|Yes| G[Data Vault Loader]
+    G --> H[(SQLite)]
+    H --> I[Regulatory Views]
+    H --> J[Controlling Views]
+    H --> K[RLS Views]
+    I --> L[FINREP/COREP CSVs]
+    J --> M[KPI Reports]
+    K --> N[Streamlit Dashboard]
+    G --> O[Audit Log]
 ```
 
 🏃 Quick Start
 
 ```bash
-Copy
 # Clone repo
 git clone https://github.com/yourusername/openreg.git
 cd openreg
 
-# Install
-
+# Install dependencies
 pip install -r requirements.txt
 
 # Run full pipeline (5 minutes)
@@ -60,15 +58,12 @@ streamlit run dashboard/app.py
 
 ## 📂 Generated Reports
 
-```table
 | Report             | Location                    | Description                          |
 | ------------------ | --------------------------- | ------------------------------------ |
 | FINREP F18         | `reports/finrep/`           | Credit quality buckets by sector     |
 | COREP CR SA        | `reports/corep/`            | Risk-weighted assets under Basel III |
 | NPL Ratio          | `reports/kpi_npl_ratio.csv` | Key regulatory KPI                   |
 | Cost Center Profit | `reports/controlling/`      | Internal profitability               |
-
-```
 
 🔍 Data Quality Results
 
@@ -91,18 +86,36 @@ SELECT * FROM v_loans_risk;
 
 ## 📖 Documentation
 
-Architecture
-Data Vault Model
-Regulatory Report Definitions
-Controlling KPIs
-Security & RLS
+- [Architecture & Data Flow](./docs/architecture.md)
+- [Data Vault Model](./docs/data_vault.md)
+- [Regulatory Report Definitions](./docs/regulatory_reports.md)
+- [Controlling KPIs](./docs/kpis.md)
+- [Security & Row-Level Security](./docs/security.md)
 
 ## 🎓 Learning Path
 
-This project demonstrates exactly what banks need:
-Technical: Python, SQL, Pandas, ETL
-Domain: FINREP, COREP, Basel III, cost center logic
-Compliance: DQ, audit logs, RLS, lineage
+This project demonstrates exactly what banks need for regulatory reporting roles:
+
+**Technical Skills:**
+
+- Python programming and data manipulation (Pandas)
+- SQL and database design (Data Vault 2.0)
+- ETL pipeline development
+- Streamlit dashboard creation
+
+**Domain Knowledge:**
+
+- FINREP and COREP regulatory reporting
+- Basel III requirements and risk-weighted assets
+- Cost center accounting and profitability analysis
+- Banking compliance frameworks
+
+**Compliance & Quality:**
+
+- Data quality assurance (98% completeness)
+- Audit trails and lineage tracking
+- Row-level security implementation
+- Regulatory documentation standards
 
 ## 🤝 Contributing
 
