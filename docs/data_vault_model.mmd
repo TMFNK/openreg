@@ -1,0 +1,20 @@
+erDiagram
+    HUB_CUSTOMER ||--o{ LINK_CUSTOMER_ACCOUNT : contains
+    HUB_ACCOUNT ||--o{ LINK_CUSTOMER_ACCOUNT : contains
+    HUB_ACCOUNT ||--o{ LINK_ACCOUNT_LOAN : contains
+    HUB_LOAN ||--o{ LINK_ACCOUNT_LOAN : contains
+    
+    HUB_CUSTOMER ||--o{ SAT_CUSTOMER_DETAILS : has
+    HUB_LOAN ||--o{ SAT_LOAN_DETAILS : has
+    
+    HUB_CUSTOMER {
+        string customer_hash PK
+        string customer_id
+        timestamp load_datetime
+    }
+    SAT_CUSTOMER_DETAILS {
+        string customer_hash FK
+        timestamp load_datetime
+        string customer_type
+        string country
+    }

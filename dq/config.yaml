@@ -1,0 +1,16 @@
+synthetic_data:
+  num_customers: 10000
+  num_accounts: 15000
+  num_loans: 8000
+  start_date: "2022-01-01"
+  end_date: "2024-12-01"
+
+dq_thresholds:
+  completeness: 0.98
+  ltv_max: 1.2
+  pd_range: [0.001, 0.99]
+  lgd_range: [0.0, 1.0]
+
+rls:
+  controlling_cost_centers: ["CC_1001", "CC_1002", "CC_1003"]
+  risk_departments: ["LOANS", "CREDIT_RISK"]

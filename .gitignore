@@ -1,0 +1,18 @@
+# Data files
+data/processed/*.db
+data/raw/*.csv
+data/dq_results/*.csv
+reports/**/*.csv
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.env
+
+# Logs
+logs/*.log
+
+# IDE
+.vscode/
+.idea/
