@@ -176,13 +176,23 @@ if "Controlling" in available_tabs:
         st.plotly_chart(fig, use_container_width=True)
 
         with st.expander("📊 Cost Center Details"):
+            def get_style(v):
+                if not isinstance(v, str):
+                    return ''
+                try:
+                    cleaned = v.replace(',', '').replace('€', '').replace('%', '')
+                    if cleaned:  # Check if non-empty after cleaning
+                        return 'background-color: #ffcccc' if float(cleaned) < 0 else ''
+                except (ValueError, TypeError):
+                    pass
+                return ''
+
             st.dataframe(controlling_data.style.format({
                 'loan_volume': '{:,.0f}',
                 'interest_income': '{:,.0f}',
                 'expected_loss': '{:,.0f}',
                 'net_contribution_margin': '{:,.0f}'
-            }).apply(lambda x: ['background-color: #ffcccc' if v < 0 else ''
-                              for v in x], axis=1))
+            }).apply(lambda x: [get_style(v) for v in x], axis=1))
     tab_index += 1
 
 # Risk officers and Regulators get risk-specific views
