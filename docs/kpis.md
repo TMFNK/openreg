@@ -171,3 +171,11 @@ All controlling KPIs are calculated from the Data Vault layer using views define
 - `sql/schema.sql` - Underlying data structures
 
 KPIs are recalculated nightly as part of the ETL pipeline (`run_pipeline.py`).
+
+## Recent Improvements
+
+- **Enhanced Data Quality**: Comprehensive DQ validation ensures 98% completeness threshold
+- **Improved Consistency**: Standardized hash-based business keys and referential integrity
+- **Temporal Data Management**: Proper load_datetime tracking for point-in-time analysis
+- **Testing Framework**: Unit tests validate KPI calculation accuracy and edge cases
+- **Production Readiness**: Monitoring hooks for operational KPI tracking
