@@ -86,11 +86,12 @@ SELECT * FROM v_loans_risk;
 
 ## 📖 Documentation
 
-- [Architecture & Data Flow](./docs/architecture.md)
-- [Data Vault Model](./docs/data_vault.md)
-- [Regulatory Report Definitions](./docs/regulatory_reports.md)
-- [Controlling KPIs](./docs/kpis.md)
-- [Security & Row-Level Security](./docs/security.md)
+- **[Architecture & Data Flow](./docs/architecture.md)** - High-level system design, ETL pipeline components, and data transformation processes
+- **[Data Vault Model](./docs/data_vault_model.mmd)** - Detailed Data Vault 2.0 implementation with hubs, links, satellites, and point-in-time recovery
+- **[Regulatory Report Definitions](./docs/regulatory_report_definitions.md)** - FINREP F18, COREP CR SA, LCR, and NPL reporting requirements with calculation formulas
+- **[Controlling KPIs](./docs/kpis.md)** - Cost-center profitability metrics, efficiency ratios, and internal management accounting KPIs
+- **[Security & Row-Level Security](./docs/security.md)** - Multi-role access control, data masking, encryption standards, and compliance framework
+- **[Project Description Document PDF](./docs/Project%20Description%20Document.pdf)** - Comprehensive technical overview, methodology, and business case documentation
 
 ## 🎓 Learning Path
 
