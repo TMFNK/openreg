@@ -11,6 +11,10 @@ from etl.transform import DataTransformer
 from etl.load import DataVaultLoader
 from dq.dq_checks import DataQualityEngine
 import sqlite3
+import yaml
+import sqlalchemy as sa
+from sqlalchemy.engine import create_engine
+from utils.error_handling import error_handler, DataQualityError, ConfigurationError
 
 logging.basicConfig(
     level=logging.INFO,
@@ -67,6 +71,15 @@ def main():
         
         # Step 4: Load to Data Vault
         logger.info("4️⃣ Load Phase")
+
+        # Load configuration for database type
+        try:
+            with open('config.yaml', 'r') as f:
+                config = yaml.safe_load(f)
+            db_type = config.get('database', {}).get('type', 'sqlite')
+        except Exception:
+            db_type = 'sqlite'
+
         loader = DataVaultLoader()
         loader.run_full_load(datasets)
         

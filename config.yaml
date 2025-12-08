@@ -1,3 +1,22 @@
+# =============================================
+# OpenReg Configuration File
+# =============================================
+
+# Database Configuration
+database:
+  type: "sqlite" # Options: sqlite, postgresql
+  sqlite:
+    path: "data/processed/openreg.db"
+  postgresql:
+    host: "localhost"
+    port: 5432
+    database: "openreg"
+    user: "openreg_user"
+    password: "secure_password_2024" # 🔐 CHANGE THIS IN PRODUCTION
+    ssl_mode: "require"
+    max_connections: 20
+
+# Data Generation Parameters
 synthetic_data:
   num_customers: 10000
   num_accounts: 15000
@@ -5,12 +24,34 @@ synthetic_data:
   start_date: "2022-01-01"
   end_date: "2024-12-01"
 
+# Data Quality Thresholds
 dq_thresholds:
   completeness: 0.98
   ltv_max: 1.2
   pd_range: [0.001, 0.99]
   lgd_range: [0.0, 1.0]
 
+# Row-Level Security Configuration
 rls:
   controlling_cost_centers: ["CC_1001", "CC_1002", "CC_1003"]
   risk_departments: ["LOANS", "CREDIT_RISK"]
+
+# Security Settings
+security:
+  session_timeout_hours: 8
+  max_login_attempts: 5
+  password_min_length: 8
+  require_2fa: false # Enable for production
+
+# Performance Settings
+performance:
+  batch_size: 1000
+  max_memory_gb: 8.0
+  enable_caching: true
+  enable_parallel_processing: true
+
+# Monitoring & Alerting
+monitoring:
+  enable_metrics: true
+  alert_email: "admin@openreg.com"
+  dq_alert_threshold: 0.95
