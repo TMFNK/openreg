@@ -1,12 +1,12 @@
-# 📄 Project Description Document
-
-**OpenReg: Synthetic Regulatory Reporting & Controlling Data Platform**
+# OpenReg: Synthetic Regulatory Reporting & Controlling Data Platform
 
 _A non-technical overview for business stakeholders_
 
-🔔 ** 08-12-2025 Critical Issues Update Complete** – Production-Ready Implementation
+### 🔔 ** 08-12-2025 Critical Issues Update Complete** – Production-Ready Implementation
 
 This project has been enhanced with enterprise-grade security, scalability, and reliability features, resolving all critical gaps for real banking implementations.
+
+---
 
 ### **What This Project Demonstrates**
 
@@ -22,6 +22,8 @@ This project simulates how a modern bank produces critical regulatory reports an
 - **Secure data access** with three-tier role-based restrictions (Regulator, Controller, Risk Officer)
 - **Operational reliability** with structured logging and enterprise-grade error handling
 - **Auditability & transparency** – every data change is tracked with full lineage
+
+---
 
 ### **Key Business Features**
 
@@ -62,13 +64,13 @@ This project simulates how a modern bank produces critical regulatory reports an
 
 ---
 
-### **Deliverables – What You Get**
+### **Deliverables**
 
 1. **Executable Codebase**
 
    - Generate realistic synthetic banking data (customers, loans, transactions)
    - Run automated ETL pipelines with enterprise error handling
-   - SQLite (development) or PostgreSQL (production) database with RLS policies
+   - SQLite (Development) or PostgreSQL (Production) database with RLS policies
    - Comprehensive unit test suite covering security and calculations
 
 2. **Pre-built Reports (CSV/Excel)**
@@ -97,17 +99,19 @@ This project simulates how a modern bank produces critical regulatory reports an
    - Comprehensive audit log of every pipeline run
    - Security implementation details with RBAC explanations
 
+---
+
 ### **Business Value**
 
-✅ **Risk Reduction**: Critical security gaps resolved with authentication and access control
-✅ **Production Readiness**: Enterprise infrastructure with monitoring and Docker deployment
-✅ **Data Integrity**: Hash-based keys and referential constraints ensure consistency
-✅ **Operational Reliability**: Structured logging, retries, and enterprise error handling
-✅ **Compliance Enhancement**: Unit tested calculations with full audit trails
-✅ **Efficiency**: Automated reports with monitoring for operational transparency
-✅ **Scalability**: Support for high-volume banking data with caching and indexing
-✅ **Security**: Timing attack prevention and secure password management
-✅ **Quality Assurance**: 98% completeness threshold with comprehensive testing framework
+- ✅ **Risk Reduction**: Critical security gaps resolved with authentication and access control
+- ✅ **Production Readiness**: Enterprise infrastructure with monitoring and Docker deployment
+- ✅ **Data Integrity**: Hash-based keys and referential constraints ensure consistency
+- ✅ **Operational Reliability**: Structured logging, retries, and enterprise error handling
+- ✅ **Compliance Enhancement**: Unit tested calculations with full audit trails
+- ✅ **Efficiency**: Automated reports with monitoring for operational transparency
+- ✅ **Scalability**: Support for high-volume banking data with caching and indexing
+- ✅ **Security**: Timing attack prevention and secure password management
+- ✅ **Quality Assurance**: 98% completeness threshold with comprehensive testing framework
 
 ---
 
@@ -159,6 +163,8 @@ The OpenReg platform is now production-ready for regulatory banking reporting wi
 **Time to Demo**: < 10 minutes to generate reports from scratch
 **Production Setup**: < 5 minutes with Docker deployment
 
+---
+
 ## 🎯 What This Project Proves
 
 | Skill                           | Evidence                                                                  |
@@ -184,6 +190,8 @@ The OpenReg platform is now production-ready for regulatory banking reporting wi
 | **Configuration Management**    | YAML-based settings, environment-specific configurations                  |
 | **Compliance Documentation**    | Regulatory requirements, security standards, audit procedures             |
 | **Scalability Engineering**     | High-volume data processing, caching strategies, performance monitoring   |
+
+---
 
 ## 📊 Architecture
 
@@ -223,6 +231,8 @@ python run_pipeline.py
 streamlit run dashboard/app.py
 ```
 
+---
+
 ## 📂 Generated Reports
 
 | Report             | Location                    | Description                          |
@@ -251,6 +261,8 @@ SELECT * FROM v_loans_controlling;
 SELECT * FROM v_loans_risk;
 ```
 
+---
+
 ## 📖 Documentation
 
 - **[Architecture & Data Flow](./docs/architecture.md)** - High-level system design, ETL pipeline components, and data transformation processes
@@ -260,9 +272,11 @@ SELECT * FROM v_loans_risk;
 - **[Security & Row-Level Security](./docs/security.md)** - Multi-role access control, data masking, encryption standards, and compliance framework
 - **[Project Description Document PDF](./docs/Project%20Description%20Document.pdf)** - Comprehensive technical overview, methodology, and business case documentation
 
+---
+
 ## 📚 Learning Path
 
-This project demonstrates exactly what banks need for regulatory reporting roles:
+This project demonstrates exactly what I think banks need for Regulatory Reporting Roles:
 
 **Enterprise Technical Skills:**
 
@@ -303,9 +317,7 @@ This project demonstrates exactly what banks need for regulatory reporting roles
 - Multi-environment configuration management (dev/prod)
 - Enterprise-grade monitoring and alerting infrastructure
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+---
 
 ## 🤝 Contributing
 
@@ -319,3 +331,9 @@ Focus on:
 - Scalability strategies
 - Documentation updates
 - Performance optimizations
+
+---
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
