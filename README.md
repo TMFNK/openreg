@@ -118,10 +118,17 @@ This project demonstrates exactly what banks need for regulatory reporting roles
 - Row-level security implementation
 - Regulatory documentation standards
 
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
 ## 🤝 Contributing
 
-PRs welcome! Focus on:
-Additional regulatory templates
-More sophisticated DQ rules
-PostgreSQL support
-Docker containerization
+PRs welcome!
+
+Focus on:
+
+- Additional regulatory templates
+- More sophisticated DQ rules
+- PostgreSQL support
+- Docker containerization
