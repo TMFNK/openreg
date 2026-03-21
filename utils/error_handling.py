@@ -2,10 +2,10 @@
 OpenReg Error Handling and Retry Mechanisms
 Implements comprehensive exception handling for enterprise reliability
 """
-import logging
+
 import time
 import functools
-from typing import Callable, Any, Optional
+from typing import Callable, Any
 import sqlite3
 import psycopg2
 from sqlalchemy.exc import SQLAlchemyError
@@ -14,28 +14,43 @@ import structlog
 # Configure structured logging
 logger = structlog.get_logger(__name__)
 
+
 class OpenRegError(Exception):
     """Base exception class for OpenReg"""
+
     pass
+
 
 class DataQualityError(OpenRegError):
     """Raised when data quality checks fail"""
+
     pass
+
 
 class DatabaseConnectionError(OpenRegError):
     """Raised when database connections fail"""
+
     pass
+
 
 class ETLProcessingError(OpenRegError):
     """Raised when ETL processing fails"""
+
     pass
+
 
 class ConfigurationError(OpenRegError):
     """Raised when configuration is invalid"""
+
     pass
 
-def retry_on_failure(max_attempts: int = 3, delay: float = 1.0,
-                    backoff: float = 2.0, exceptions: tuple = (Exception,)):
+
+def retry_on_failure(
+    max_attempts: int = 3,
+    delay: float = 1.0,
+    backoff: float = 2.0,
+    exceptions: tuple = (Exception,),
+):
     """
     Decorator for retrying functions on failure with exponential backoff
 
@@ -45,6 +60,7 @@ def retry_on_failure(max_attempts: int = 3, delay: float = 1.0,
         backoff: Backoff multiplier for delay
         exceptions: Tuple of exceptions to catch and retry on
     """
+
     def decorator(func: Callable) -> Callable:
         @functools.wraps(func)
         def wrapper(*args, **kwargs) -> Any:
@@ -62,7 +78,7 @@ def retry_on_failure(max_attempts: int = 3, delay: float = 1.0,
                             function=func.__name__,
                             attempts=max_attempts,
                             error=str(e),
-                            exc_info=True
+                            exc_info=True,
                         )
                         raise
 
@@ -72,7 +88,7 @@ def retry_on_failure(max_attempts: int = 3, delay: float = 1.0,
                         attempt=attempt + 1,
                         max_attempts=max_attempts,
                         delay=current_delay,
-                        error=str(e)
+                        error=str(e),
                     )
 
                     time.sleep(current_delay)
@@ -82,10 +98,13 @@ def retry_on_failure(max_attempts: int = 3, delay: float = 1.0,
             raise last_exception
 
         return wrapper
+
     return decorator
+
 
 def handle_database_errors(func: Callable) -> Callable:
     """Decorator for handling database-specific errors"""
+
     @functools.wraps(func)
     def wrapper(*args, **kwargs) -> Any:
         try:
@@ -96,7 +115,7 @@ def handle_database_errors(func: Callable) -> Callable:
                 function=func.__name__,
                 error_type=type(e).__name__,
                 error=str(e),
-                exc_info=True
+                exc_info=True,
             )
             raise DatabaseConnectionError(f"Database operation failed: {str(e)}") from e
         except Exception as e:
@@ -104,10 +123,12 @@ def handle_database_errors(func: Callable) -> Callable:
                 "Unexpected error in database operation",
                 function=func.__name__,
                 error=str(e),
-                exc_info=True
+                exc_info=True,
             )
             raise ETLProcessingError(f"ETL processing failed: {str(e)}") from e
+
     return wrapper
+
 
 def validate_configuration(config: dict, required_keys: list) -> None:
     """
@@ -122,7 +143,7 @@ def validate_configuration(config: dict, required_keys: list) -> None:
     """
     missing_keys = []
     for key in required_keys:
-        keys = key.split('.')
+        keys = key.split(".")
         current = config
 
         for k in keys:
@@ -138,6 +159,7 @@ def validate_configuration(config: dict, required_keys: list) -> None:
 
     if missing_keys:
         raise ConfigurationError(f"Missing required configuration keys: {missing_keys}")
+
 
 class ErrorHandler:
     """Central error handling and recovery manager"""
@@ -165,7 +187,7 @@ class ErrorHandler:
             "error_type": error_type,
             "error_message": str(error),
             "error_count": self.error_counts[error_type],
-            "context": context or {}
+            "context": context or {},
         }
 
         if isinstance(error, (DataQualityError, ConfigurationError)):
@@ -177,7 +199,9 @@ class ErrorHandler:
                 try:
                     self.recovery_actions[DatabaseConnectionError]()
                 except Exception as recovery_error:
-                    logger.error("Recovery action failed", recovery_error=str(recovery_error))
+                    logger.error(
+                        "Recovery action failed", recovery_error=str(recovery_error)
+                    )
         else:
             logger.error("Unhandled error", **log_data, exc_info=True)
 
@@ -186,14 +210,19 @@ class ErrorHandler:
         return {
             "total_errors": sum(self.error_counts.values()),
             "error_counts_by_type": self.error_counts.copy(),
-            "most_common_error": max(self.error_counts.keys(),
-                                   key=lambda k: self.error_counts[k]) if self.error_counts else None
+            "most_common_error": (
+                max(self.error_counts.keys(), key=lambda k: self.error_counts[k])
+                if self.error_counts
+                else None
+            ),
         }
+
 
 # Global error handler instance
 error_handler = ErrorHandler()
 
 # Convenience functions for common error scenarios
+
 
 @retry_on_failure(max_attempts=3, delay=0.5, exceptions=(DatabaseConnectionError,))
 def execute_with_retry(query: str, connection_params: dict) -> Any:
@@ -213,54 +242,49 @@ def execute_with_retry(query: str, connection_params: dict) -> Any:
     # Actual implementation would go here
     pass
 
+
 def graceful_shutdown(signum: int, frame) -> None:
     """Handle graceful shutdown on system signals"""
     logger.info("Received shutdown signal", signal=signum)
     # Perform cleanup operations here
     logger.info("Shutdown complete")
 
+
 def setup_structured_logging(log_level: str = "INFO", log_file: str = None) -> None:
     """Setup structured logging configuration"""
     import logging.config
 
     logging_config = {
-        'version': 1,
-        'disable_existing_loggers': False,
-        'formatters': {
-            'json': {
-                'class': 'pythonjsonlogger.jsonlogger.JsonFormatter',
-                'format': '%(asctime)s %(name)s %(levelname)s %(message)s'
+        "version": 1,
+        "disable_existing_loggers": False,
+        "formatters": {
+            "json": {
+                "class": "pythonjsonlogger.jsonlogger.JsonFormatter",
+                "format": "%(asctime)s %(name)s %(levelname)s %(message)s",
             }
         },
-        'handlers': {
-            'console': {
-                'level': log_level,
-                'class': 'logging.StreamHandler',
-                'formatter': 'json'
+        "handlers": {
+            "console": {
+                "level": log_level,
+                "class": "logging.StreamHandler",
+                "formatter": "json",
             }
         },
-        'loggers': {
-            'openreg': {
-                'handlers': ['console'],
-                'level': log_level,
-                'propagate': False
-            }
+        "loggers": {
+            "openreg": {"handlers": ["console"], "level": log_level, "propagate": False}
         },
-        'root': {
-            'handlers': ['console'],
-            'level': log_level
-        }
+        "root": {"handlers": ["console"], "level": log_level},
     }
 
     if log_file:
-        logging_config['handlers']['file'] = {
-            'level': log_level,
-            'class': 'logging.FileHandler',
-            'filename': log_file,
-            'formatter': 'json'
+        logging_config["handlers"]["file"] = {
+            "level": log_level,
+            "class": "logging.FileHandler",
+            "filename": log_file,
+            "formatter": "json",
         }
-        logging_config['loggers']['openreg']['handlers'].append('file')
-        logging_config['root']['handlers'].append('file')
+        logging_config["loggers"]["openreg"]["handlers"].append("file")
+        logging_config["root"]["handlers"].append("file")
 
     logging.config.dictConfig(logging_config)
     structlog.configure(
@@ -268,13 +292,16 @@ def setup_structured_logging(log_level: str = "INFO", log_file: str = None) -> N
             structlog.contextvars.merge_contextvars,
             structlog.processors.add_log_level,
             structlog.processors.TimeStamper(fmt="iso"),
-            structlog.processors.JSONRenderer()
+            structlog.processors.JSONRenderer(),
         ],
-        wrapper_class=structlog.make_filtering_bound_logger(logging.getLevelName(log_level)),
+        wrapper_class=structlog.make_filtering_bound_logger(
+            logging.getLevelName(log_level)
+        ),
         context_class=dict,
         logger_factory=structlog.WriteLoggerFactory(),
         cache_logger_on_first_use=True,
     )
+
 
 # Initialize default logging
 setup_structured_logging()

@@ -81,11 +81,11 @@ def main() -> None:
     # ── 1. Config ────────────────────────────────────────────────────────────
     config = _load_config(logger)
     db_path = (
-        config.get("database", {}).get("sqlite", {}).get("path", "data/processed/openreg.db")
+        config.get("database", {})
+        .get("sqlite", {})
+        .get("path", "data/processed/openreg.db")
     )
-    dq_threshold = (
-        config.get("dq_thresholds", {}).get("completeness", 0.98)
-    )
+    dq_threshold = config.get("dq_thresholds", {}).get("completeness", 0.98)
 
     # ── 2. Database init ─────────────────────────────────────────────────────
     _init_database(db_path)
@@ -131,9 +131,13 @@ def main() -> None:
         logger.info("6️⃣  Generating Reports")
         conn = sqlite3.connect(db_path)
         report_queries = {
-            "reports/finrep/finrep_f18_credit_quality.csv": "SELECT * FROM finrep_f18_credit_quality",
+            "reports/finrep/finrep_f18_credit_quality.csv": (
+                "SELECT * FROM finrep_f18_credit_quality"
+            ),
             "reports/corep/corep_cr_sa_exposure.csv": "SELECT * FROM corep_cr_sa_exposure",
-            "reports/controlling/cost_center_profitability.csv": "SELECT * FROM controlling_cost_center_profit",
+            "reports/controlling/cost_center_profitability.csv": (
+                "SELECT * FROM controlling_cost_center_profit"
+            ),
         }
         for csv_path, query in report_queries.items():
             pd.read_sql(query, conn).to_csv(csv_path, index=False)
