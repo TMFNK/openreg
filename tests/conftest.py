@@ -3,12 +3,19 @@ OpenReg Test Configuration
 Shared fixtures and setup for pytest
 """
 
+import sys
+from pathlib import Path
+
+# Add project root to Python path so tests can find local modules
+project_root = Path(__file__).parent.parent
+if str(project_root) not in sys.path:
+    sys.path.insert(0, str(project_root))
+
 import pytest
 import pandas as pd
 import sqlite3
 import os
 import tempfile
-from pathlib import Path
 
 
 @pytest.fixture
