@@ -61,12 +61,4 @@ jobs:
 
       - name: Verify Python imports
         run: |
-          docker run --rm openreg:test python -c "
-            import pandas
-            import numpy
-            import yaml
-            import streamlit
-            import sqlalchemy
-            import structlog
-            print('All imports successful')
-          "
+          docker run --rm openreg:test python -c "import pandas; import numpy; import yaml; import streamlit; import sqlalchemy; import structlog; print('All imports successful')"
