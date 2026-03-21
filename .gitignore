@@ -1,0 +1,44 @@
+# Data files
+data/processed/*.db
+data/raw/*.csv
+data/dq_results/*.csv
+reports/**/*.csv
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+.eggs/
+.venv/
+venv/
+env/
+.env
+*.env
+
+# Exception: keep example env file
+!.env.example
+
+# Testing
+.pytest_cache/
+htmlcov/
+.coverage
+coverage.xml
+
+# Type checking
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+logs/*.log
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,7 @@
+completeness_threshold: 0.98
+ltv_max_threshold: 1.2
+pd_min: 0.001
+pd_max: 0.99
+lgd_min: 0.0
+lgd_max: 1.0
+accounting_tolerance: 0.01

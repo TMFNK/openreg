@@ -1,0 +1,24 @@
+%% Data Vault 2.0 Model - Implemented in PostgreSQL (production) and SQLite (development)
+%% Features: Comprehensive indexing, Row Level Security (RLS) policies, Audit logging,
+%% User access tracking, Foreign key constraints, Hash-based business keys
+
+erDiagram
+    HUB_CUSTOMER ||--o{ LINK_CUSTOMER_ACCOUNT : contains
+    HUB_ACCOUNT ||--o{ LINK_CUSTOMER_ACCOUNT : contains
+    HUB_ACCOUNT ||--o{ LINK_ACCOUNT_LOAN : contains
+    HUB_LOAN ||--o{ LINK_ACCOUNT_LOAN : contains
+    
+    HUB_CUSTOMER ||--o{ SAT_CUSTOMER_DETAILS : has
+    HUB_LOAN ||--o{ SAT_LOAN_DETAILS : has
+    
+    HUB_CUSTOMER {
+        string customer_hash PK
+        string customer_id
+        timestamp load_datetime
+    }
+    SAT_CUSTOMER_DETAILS {
+        string customer_hash FK
+        timestamp load_datetime
+        string customer_type
+        string country
+    }
