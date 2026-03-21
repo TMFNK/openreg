@@ -35,8 +35,8 @@ graph TD
     A[Synthetic Generator] --> B[Raw CSVs]
     B --> C[Data Transformer]
     C --> D[DQ Engine]
-    D --> E{Quality >= 98%?}
-    E -->|No|  F[Abort & Alert]
+    D --> E{"Quality >= 98%?"}
+    E -->|No| F[Abort and Alert]
     E -->|Yes| G[Data Vault Loader]
     G --> H[(SQLite or PostgreSQL)]
     H --> I[Regulatory Views]
